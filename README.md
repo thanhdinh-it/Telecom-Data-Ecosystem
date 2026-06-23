@@ -1,8 +1,6 @@
 # Telecom Data Ecosystem
 
-> End-to-end telecom data pipeline chạy hoàn toàn trên Docker.  
-> **Portfolio project** cho vị trí Data Engineer — xử lý batch CDR, real-time fraud detection và analytics modeling.
-
+> End-to-end telecom data pipeline
 ---
 
 ## Architecture
@@ -32,8 +30,7 @@
                                ▼
                     [Metabase Dashboard]
 
-Orchestration: Apache Airflow (3 DAGs)
-Testing: pytest (20 unit tests) + dbt tests
+Orchestration: Apache Airflow
 ```
 
 ---
