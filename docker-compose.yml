@@ -1,9 +1,6 @@
-version: "3.8"
 
-# ============================================================
 # Telecom Data Ecosystem — Docker Compose
-# RAM budget: ~11.5GB cho services, còn ~4.5GB cho OS
-# ============================================================
+
 
 x-airflow-common: &airflow-common
   image: apache/airflow:2.8.0
