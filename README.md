@@ -1,6 +1,7 @@
 # Telecom Data Ecosystem
 
-> End-to-end telecom data pipeline
+> Dự án cá nhân tập trung vào việc xây dựng hệ sinh thái thu thập, xử lý và phân tích dữ liệu trong lĩnh vực viễn thông.
+
 ---
 
 ## Architecture
