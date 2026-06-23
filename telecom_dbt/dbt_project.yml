@@ -1,0 +1,44 @@
+name: 'telecom_dbt'
+version: '1.0.0'
+config-version: 2
+
+# Thư mục profile — mặc định ~/.dbt, override bằng --profiles-dir
+profile: 'telecom_dbt'
+
+# Cấu trúc thư mục
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# Cấu hình theo model layer
+models:
+  telecom_dbt:
+    # Staging: views (không persist, rebuild nhanh)
+    staging:
+      +materialized: view
+      +schema: staging
+
+    # Intermediate: tables (join phức tạp, cache để perf)
+    intermediate:
+      +materialized: table
+      +schema: intermediate
+
+    # Marts: tables (final analytics tables)
+    marts:
+      +materialized: table
+      +schema: analytics
+
+# Variables có thể override khi chạy:
+# dbt run --vars '{"execution_date": "2024-06-17"}'
+vars:
+  execution_date: "{{ run_started_at.strftime('%Y-%m-%d') }}"
+  fraud_threshold_calls: 50
+  churn_lookback_months: 3

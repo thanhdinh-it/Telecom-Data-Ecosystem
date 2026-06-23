@@ -1,0 +1,90 @@
+version: 2
+
+models:
+  - name: churn_feature_store
+    description: "Feature store cho churn prediction ML model. Tổng hợp 20+ features per active customer từ usage history 3 tháng và fraud alerts."
+    columns:
+      - name: customer_id
+        description: "ID duy nhất của khách hàng (natural key)"
+        tests:
+          - unique
+          - not_null
+
+      - name: plan_type
+        description: "Gói cước hiện tại"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['basic', 'standard', 'premium']
+
+      - name: is_active
+        description: "Chỉ TRUE — model này filter out inactive customers"
+        tests:
+          - not_null
+
+      - name: total_fraud_incidents
+        description: "Tổng số lần bị flag là fraud"
+        tests:
+          - not_null
+
+      - name: avg_monthly_calls_3m
+        description: "Trung bình số cuộc gọi mỗi tháng trong 3 tháng qua"
+        tests:
+          - not_null
+
+      - name: is_churn_risk
+        description: "1 = có nguy cơ churn, 0 = không. Rule-based flag."
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+
+      - name: feature_generated_at
+        description: "Timestamp khi feature được generate"
+        tests:
+          - not_null
+
+  - name: dim_customer
+    description: "Dimension table cho customers"
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+      - name: plan_type
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['basic', 'standard', 'premium']
+
+  - name: fact_monthly_usage
+    description: "Fact table monthly usage per subscriber"
+    columns:
+      - name: usage_sk
+        description: "Surrogate key (hash of caller_id + month)"
+        tests:
+          - unique
+          - not_null
+      - name: caller_id
+        tests:
+          - not_null
+      - name: month
+        tests:
+          - not_null
+      - name: monthly_total_calls
+        tests:
+          - not_null
+
+  - name: fact_fraud_alerts
+    description: "Fact table fraud alerts enriched"
+    columns:
+      - name: alert_id
+        tests:
+          - unique
+          - not_null
+      - name: caller_id
+        tests:
+          - not_null
+      - name: call_count
+        tests:
+          - not_null

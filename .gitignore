@@ -1,0 +1,71 @@
+# Secrets & credentials
+.env
+*.secret
+secrets/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+.eggs/
+*.egg-info/
+dist/
+build/
+
+# pytest
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Spark
+spark-warehouse/
+metastore_db/
+derby.log
+/tmp/spark-checkpoints/
+
+# dbt
+telecom_dbt/target/
+telecom_dbt/dbt_packages/
+telecom_dbt/logs/
+telecom_dbt/.user.yml
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Docker volumes (nếu mount local)
+postgres-data/
+namenode-data/
+datanode-data/
+kafka-data/
+
+# Raw/generated data (không commit)
+/tmp/raw/
+data/raw/
+
+# Logs
+*.log
+logs/
+airflow-logs/
+
+# AI/tooling context (không liên quan đến source code)
+.ai/
+CLAUDE.md
+DE_Portfolio_Roadmap_7Weeks.md
